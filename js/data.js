@@ -9,10 +9,11 @@ var Data = function() {
 Data.prototype.init = function() {
 	this.filesize = {};
 	this.filesize.kla = 10003;
+	this.filesize.ddl = 9216;
+	this.filesize.spr_multi = 64;
+	this.filesize.spr_hires = 64;
 	this.data = [];
 };
-
-
 
 Data.prototype.getBinaryFromFile = function(filename) {
 	var that = this;

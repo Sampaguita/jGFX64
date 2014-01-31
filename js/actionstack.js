@@ -16,12 +16,14 @@ Actionstack.prototype.init = function() {
 
 Actionstack.prototype.addAction = function(action) {
 	consoleDebug('adding action '+ action);
-	if(this.stack.length >= this.maxSteps) {
-		this.stack.pop();
-		this.stack.unshift(action);
+	var that = this;
+	if(that.stack.length >= that.maxSteps) {
+		that.stack.pop();
+		that.stack.unshift(action);
 	} else {
-		this.stack.unshift(action);
+		that.stack.unshift(action);
 	}
+	gui.updateHistory();
 };
 
 Actionstack.prototype.undoLastAction = function() {
@@ -35,9 +37,11 @@ Actionstack.prototype.showAllActions = function() {
 	return this.stack;
 };
 
-
-
 /* setup actionstack */
 Actionstack.prototype.setMaxSteps = function(value) {
-	this.maxSteps = value;
+	if((typeof value === 'number') && (Math.floor(value) === value)) {
+		this.maxSteps = value;
+	} else {
+		consoleError('Actionstack.prototype.setMaxSteps: value is not an integer!', value);
+	}
 };

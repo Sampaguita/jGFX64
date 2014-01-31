@@ -3,29 +3,23 @@ _globalVar = {
 };
 consoleTimeStart('default.js');
 var history = new Actionstack();
+var gui = new GUI();
+var imgData = new Data();
+var image = new Image();
 
 
-$j = jQuery.noConflict();
 $j(document).ready(function() {
 	if(_globalVar.debugMode >= 1) {
 		consoleWarn("Debug mode: "+ _globalVar.debugMode);
 	}
 	initGUI();
 
-	var imgData = new Data();
 	imgData.getBinaryFromFile('files/dry-stun-kill.kla');
 //	imgData.getBinaryFromFile('files/sx64ual_healing.kla');
-	consoleInfo('file content', imgData.data);
+//	consoleInfo('file content', imgData.data);
 
-	var image = new Image();
-	image.showDataAsFormat(imgData, 'kla');
+	image.showDataAsFormat('kla');
 //	image.showDataAsFormat(imgData, 'ddl');
-
-
-	history.showAllActions();
-
-
-
 
 	consoleTimeStop('default.js');
 });
@@ -35,7 +29,6 @@ $j(document).ready(function() {
 
 
 var initGUI = function() {
-	var gui = new GUI();
 	gui.setTheme();
 	$j('.setTheme').on('click', function(e) {
 		e.preventDefault();

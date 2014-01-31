@@ -16,6 +16,7 @@ GUI.prototype.init = function() {
 	this.resizeCanvas();
 	this.showGrid();
 	this.zoomCanvas();
+	this.updateHistory();
 };
 
 GUI.prototype.setTheme = function(theme) {
@@ -82,3 +83,20 @@ GUI.prototype.zoomCanvas = function() {
 	$j('#canvas-display').addClass('zoom-'+ that.canvasZoom);
 
 };
+
+GUI.prototype.updateHistory = function() {
+	var that = this;
+	var historyToolsList = $j('#historyTools ul');
+	var historyStack = history.stack;
+	var stackLength = historyStack.length;
+	if(stackLength > 0) {
+		historyToolsList.find('li').remove();
+		for(var i=0; i<stackLength; i++) {
+			var currentAction = historyStack[i];
+			historyToolsList.append('<li class="list-group-item">'+ currentAction +'</li>');
+		}
+	} else {
+		historyToolsList.append('<li class="list-group-item unavailable">no actions found</li>');
+	}
+};
+

@@ -21,10 +21,12 @@ Image.prototype.setColorMode = function() {
 
 		switch(selectedColorMode){
 			case 'multicolor':
+				history.addAction('setColorMode('+ selectedColorMode +')');
 				that.colorMode = selectedColorMode;
 				that.showImage();
 				break;
 			case 'hires':
+				history.addAction('setColorMode('+ selectedColorMode +')');
 				that.colorMode = selectedColorMode;
 				that.showImage();
 				break;
@@ -35,12 +37,16 @@ Image.prototype.setColorMode = function() {
 	});
 };
 
-Image.prototype.showDataAsFormat = function(imgData, format) {
+Image.prototype.showDataAsFormat = function(format) {
 	var that = this;
+	if(typeof format !== 'string') {
+		consoleError('Image.prototype.showDataAsFormat: format is not a string!', format);
+		return false;
+	}
 	switch(format) {
-		case 'kla':
-			// KOALA
-			if(imgData.data.length != 10003) {
+		// KOALA
+		case 'kla': {
+			if(imgData.data.length != imgData.filesize.kla) {
 				consoleError('Filesize('+ imgData.data.length +' Bytes) wrong! Koala = 10003 Bytes');
 				return false;
 			}
@@ -54,11 +60,12 @@ Image.prototype.showDataAsFormat = function(imgData, format) {
 			history.addAction('showDataAsFormat(kla)');
 			consoleInfo('*** KOALA format ***\nstartAdr:         2 Bytes\nbitmap:        8000 Bytes\nscreenRAM:     1000 Bytes\ncolorRAM:      1000 Bytes\nbgColor:          1 Byte\n================================\n              10003 Bytes', that.data);
 			break;
-		case 'ddl':
-			// DOODLE
-			if(imgData.data.length != 9216) {
+		}
+		// DOODLE
+		case 'ddl': {
+			if(imgData.data.length != imgData.filesize.ddl) {
 				consoleError('Filesize('+ imgData.data.length +' Bytes) wrong! Doodle = 9216 Bytes');
-//				return false;
+				return false;
 			}
 			that.data.screenRAM = imgData.data.slice(0,1024);
 			that.data.bitmap = imgData.data.slice(1024,9216);
@@ -67,9 +74,10 @@ Image.prototype.showDataAsFormat = function(imgData, format) {
 			history.addAction('showDataAsFormat(ddl)');
 			consoleInfo('*** DOODLE format ***\nscreenRAM:     1024 Bytes\nbitmap:        8192 Bytes\n================================\n               9216 Bytes', that.data);
 			break;
-		case 'spr_multi':
-			// SPRITE - multicolor mode
-			if(imgData.length != 64) {
+		}
+		// SPRITE - multicolor mode
+		case 'spr_multi': {
+			if(imgData.length != imgData.filesize.spr_multi) {
 				consoleError('Filesize('+ imgData.data.length +' Bytes) wrong! Sprite = 64 Bytes');
 				return false;
 			}
@@ -80,9 +88,10 @@ Image.prototype.showDataAsFormat = function(imgData, format) {
 			history.addAction('showDataAsFormat(spr_multicolor)');
 			consoleInfo('*** SPRITE format ***\nbitmap:        63 Bytes\nplaceholder:    1 Byte\n================================\n               64 Bytes', that.data);
 			break;
-		case 'spr_hires':
-			// SPRITE - hires mode
-			if(imgData.length != 64) {
+		}
+		// SPRITE - hires mode
+		case 'spr_hires': {
+			if(imgData.length != imgData.filesize.spr_hires) {
 				consoleError('Filesize('+ imgData.data.length +' Bytes) wrong! Sprite = 64 Bytes');
 				return false;
 			}
@@ -93,7 +102,9 @@ Image.prototype.showDataAsFormat = function(imgData, format) {
 			history.addAction('showDataAsFormat(spr_hires)');
 			consoleInfo('*** SPRITE format ***\nbitmap:        63 Bytes\nplaceholder:    1 Byte\n================================\n               64 Bytes', that.data);
 			break;
+		}
 		default:
+			consoleError('Image.prototype.showDataAsFormat: format unknown or not supported!', format);
 			return false;
 	}
 	that.showImage();
