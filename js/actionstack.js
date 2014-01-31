@@ -32,11 +32,6 @@ Actionstack.prototype.undoLastAction = function() {
 Actionstack.prototype.redoLastAction = function() {
 };
 
-Actionstack.prototype.showAllActions = function() {
-	consoleDebug('show all actions:\n->'+ this.stack.join('\n->'));
-	return this.stack;
-};
-
 /* setup actionstack */
 Actionstack.prototype.setMaxSteps = function(value) {
 	if((typeof value === 'number') && (Math.floor(value) === value)) {
