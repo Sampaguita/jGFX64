@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>jGFX64</title>
+	<base href="../trunk/">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+
+	<!-- CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet/less" type="text/css" href="css/default.less" />
+</head>
+<body>
+
+<div id="header" class="navbar navbar-default navbar-static-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand">jGFX64</a>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">File <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a>New...</a></li>
+						<li><a>Load file</a></li>
+						<li><a>Save file</a></li>
+						<li class="dropdown-submenu"><a>Save file as...</a>
+							<ul class="dropdown-menu">
+								<li><a>jGFX64 (.xml)</a></li>
+								<li><a>Koala (.kla)</a></li>
+								<li><a>Doodle (.ddl)</a></li>
+								<li><a>Sprite (.spr)</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Edit <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a>Undo</a></li>
+						<li><a>Copy</a></li>
+						<li class="divider"></li>
+						<li class="dropdown-submenu"><a>Debug</a>
+							<ul class="dropdown-menu">
+								<li><a>show broken cells</a></li>
+								<li><a>highlight color set</a></li>
+								<li><a>edit cell color set</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Options <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-submenu"><a>Set color palette</a>
+							<ul class="dropdown-menu">
+								<li><a class="setColorPalette" data-content="palette-c64-pepto">Pepto (default)</a></li>
+								<li><a class="setColorPalette" data-content="palette-c64-straight">Straight</a></li>
+								<li><a class="setColorPalette unavailable" data-content="palette-c64-css2">CSS2</a></li>
+								<li class="divider"></li>
+								<li><a class="setColorPalette unavailable" data-content="free">Define new palette</a></li>
+							</ul>
+						</li>
+						<li class="dropdown-submenu"><a>Set color mode</a>
+							<ul class="dropdown-menu">
+								<li><a class="setColorMode" data-content="multicolor">MultiColor (default)</a></li>
+								<li><a class="setColorMode" data-content="hires">HiRes</a></li>
+								<li><a class="setColorMode unavailable" data-content="mci">MultiColor Interlace</a></li>
+								<!--
+								<li><a class="setColorMode unavailable" data-content="fli">Flexible Line Interpretation</a></li>
+								<li><a class="setColorMode unavailable" data-content="ifli">Interlaced Flexible Line Interpretation</a></li>
+								<li><a class="setColorMode unavailable" data-content="sh">SuperHires</a></li>
+								<li><a class="setColorMode unavailable" data-content="shi">SuperHires Interlace</a></li>
+								<li><a class="setColorMode unavailable" data-content="shfli">Super Hires FLI</a></li>
+								<li><a class="setColorMode unavailable" data-content="shifli">Super Hires Interlace FLI</a></li>
+								-->
+								<li class="divider"></li>
+								<li><a class="setColorMode" data-content="free">Free Color Mode</a></li>
+							</ul>
+						</li>
+						<li class="dropdown-submenu"><a>Set theme</a>
+							<ul class="dropdown-menu">
+								<li><a class="setTheme" data-content="darkTheme">Dark theme (default)</a></li>
+								<li><a class="setTheme" data-content="lightTheme">Light theme</a></li>
+								<li><a class="setTheme" data-content="bluescreenTheme">Classic</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a>Help</a></li>
+						<li><a href="#">Source Code</a></li>
+						<li class="divider"></li>
+						<li><a>About...</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-1">
+			<div id="paintTools" class="gui">
+				<h2>PaintTools</h2>
+				<ul>
+					<li class="icon-paint"><span class="hide">Paint</span></li>
+					<li class="icon-erase"><span class="hide">Erase</span></li>
+					<li class="icon-fill-mono unavailable"><span class="hide">Fill Monochrome</span></li>
+					<li class="icon-fill-grad unavailable"><span class="hide">Fill Gradient</span></li>
+					<li class="icon-draw-rect unavailable"><span class="hide">Paint Rectangle</span></li>
+					<li class="icon-draw-circ unavailable"><span class="hide">Paint Circle</span></li>
+					<li class="icon-draw-line unavailable"><span class="hide">Paint Line</span></li>
+					<li class="unavailable"><span class="hide"></span></li>
+					<li class="icon-mirror-vert unavailable"><span class="hide">Mirror Vertical</span></li>
+					<li class="icon-mirror-hori unavailable"><span class="hide">Mirror Horizontal</span></li>
+					<li class="icon-move-vert unavailable"><span class="hide">Move Vertical</span></li>
+					<li class="icon-move-hori unavailable"><span class="hide">Move Horizontal</span></li>
+				</ul>
+			</div>
+			<div id="colorPalette" class="gui">
+				<h2>Colors</h2>
+				<ul>
+					<li class="color-00"></li>
+					<li class="color-01"></li>
+					<li class="color-02"></li>
+					<li class="color-03"></li>
+					<li class="color-04"></li>
+					<li class="color-05"></li>
+					<li class="color-06"></li>
+					<li class="color-07"></li>
+					<li class="color-08"></li>
+					<li class="color-09"></li>
+					<li class="color-0A"></li>
+					<li class="color-0B"></li>
+					<li class="color-0C"></li>
+					<li class="color-0D"></li>
+					<li class="color-0E"></li>
+					<li class="color-0F"></li>
+				</ul>
+			</div>
+			<div id="toolStatus" class="gui">
+				<h2>Colors</h2>
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-md-9">
+			<div id="workspace" class="gui">
+				<h2>Canvas</h2>
+				<div id="canvas">
+					<div id="canvas-display">
+						<span class="helper"></span>
+						<div id="image"></div>
+					</div>
+				</div>
+				<div class="clr"></div>
+				<fieldset>
+					<label for="canvas-zoom">Zoom</label>
+					<select id="canvas-zoom" title="Zoom">
+						<option value="1" selected="selected">100%</option>
+						<option value="2">200%</option>
+						<option value="3">300%</option>
+						<option value="4">400%</option>
+						<option value="5">500%</option>
+						<option value="6">600%</option>
+						<option value="8">800%</option>
+						<option value="12">1200%</option>
+					</select>
+				</fieldset>
+				<fieldset>
+					<label for="grid">
+						<input type="checkbox" id="grid" value="" title="Grid">
+						Grid
+					</label>
+				</fieldset>
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<div id="historyTools" class="gui">
+				<h2>History</h2>
+				<ul class="list-group">
+					<li class="list-group-item">Last action</li>
+					<li class="list-group-item">Previous action</li>
+					<li class="list-group-item">Morbi leo risus</li>
+					<li class="list-group-item">Porta ac consectetur ac</li>
+					<li class="list-group-item">Vestibulum at eros</li>
+					<li class="list-group-item">Morbi leo risus</li>
+					<li class="list-group-item">Porta ac consectetur ac</li>
+					<li class="list-group-item">Vestibulum at eros</li>
+					<li class="list-group-item">Morbi leo risus</li>
+					<li class="list-group-item">Porta ac consectetur ac</li>
+					<li class="list-group-item">Vestibulum at eros</li>
+				</ul>
+			</div>
+			<div id="previewTools" class="gui">
+			<h2>Preview</h2>
+			<ul>
+				<li>Emulate TV</li>
+			</ul>
+		</div>
+		</div>
+	</div>
+</div>
+<div id="statusTools" class="gui col-md-12 hide">
+	<h2>Status</h2>
+	<ul>
+		<li>Cursor X/Y</li>
+	</ul>
+</div>
+
+
+
+
+
+
+<!-- JAVASCRIPT -->
+<script src="js/console.js"></script>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/less-1.6.1.min.js" type="text/javascript"></script>
+<!--<script src="js/jdataview.js"></script>-->
+<script src="js/actionstack.js"></script>
+<script src="js/data.js"></script>
+<script src="js/image.js"></script>
+<script src="js/interface.js"></script>
+<script src="js/palettes.js"></script>
+<script src="js/default.js"></script>
+
+</body>
+</html>
