@@ -631,6 +631,15 @@ body.darkTheme {
 	#colorPalette li:hover {
 		border-color: @hoverColor;
 	}
+	.modal-content {
+		background: @greylow;
+	}
+	.btn-primary, .progress-bar {
+		background-color: @hoverColor;
+	}
+	.close, .close:focus, .close:hover {
+		color: @white;
+	}
 }
 
 
@@ -677,6 +686,16 @@ body.lightTheme {
 	}
 	#colorPalette li:hover {
 		border-color: @hoverColor;
+	}
+	.modal-content {
+		background: @greylight;
+	}
+	.btn-primary, .progress-bar {
+		background-color: @hoverColor;
+		color: @greyblack;
+	}
+	.close, .close:focus, .close:hover {
+		color: @black;
 	}
 }
 
@@ -729,5 +748,14 @@ body.bluescreenTheme {
 	}
 	#workspace #canvas #canvas-display {
 		background: @bluedark;
+	}
+	.modal-content {
+		background: @bluedark;
+	}
+	.btn-primary, .progress-bar {
+		background-color: @bluelight;
+	}
+	.close, .close:focus, .close:hover {
+		color: @white;
 	}
 }

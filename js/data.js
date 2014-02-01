@@ -7,6 +7,8 @@ var Data = function() {
 };
 
 Data.prototype.init = function() {
+	this.checkFileAPI();
+
 	this.filesize = {};
 	this.filesize.kla = 10003;
 	this.filesize.ddl = 9216;
@@ -37,4 +39,14 @@ Data.prototype.getBinaryFromFile = function(filename) {
 };
 
 Data.prototype.saveBinaryToFile = function(binary, filename) {
+};
+
+Data.prototype.checkFileAPI = function() {
+	if (window.File && window.FileReader && window.FileList && window.Blob) {
+		// Great success! All the File APIs are supported.
+		consoleInfo('Browser supports File API.')
+	} else {
+		consoleError('Browser doesn\'t support File API.');
+		return false;
+	}
 };
