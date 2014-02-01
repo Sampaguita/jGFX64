@@ -233,13 +233,14 @@
 			</div>
 			<div class="modal-footer">
 				<div class="progress progress-striped active">
-					<div class="progress-bar"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+					<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
 						<span class="sr-only">0% Complete</span>
 					</div>
 				</div>
 				<button type="button" class="btn btn-danger" onclick="abortRead();">Abort</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-primary">Load file</button>
+				<button type="button" class="btn btn-success hide">Continue</button>
 			</div>
 		</div>
 	</div>
@@ -262,6 +263,71 @@
 <script src="js/interface.js"></script>
 <script src="js/palettes.js"></script>
 <script src="js/default.js"></script>
+
+
+<script>
+	var reader;
+	var progress = $j('.progress-bar')
+
+	function abortRead() {
+		reader.abort();
+	}
+
+	function errorHandler(evt) {
+		switch(evt.target.error.code) {
+			case evt.target.error.NOT_FOUND_ERR:
+				alert('File Not Found!');
+				break;
+			case evt.target.error.NOT_READABLE_ERR:
+				alert('File is not readable');
+				break;
+			case evt.target.error.ABORT_ERR:
+				break; // noop
+			default:
+				alert('An error occurred reading this file.');
+		};
+	}
+
+	function updateProgress(evt) {
+		// evt is an ProgressEvent.
+		if (evt.lengthComputable) {
+			var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+			// Increase the progress bar length.
+			if (percentLoaded < 100) {
+				progress.attr('aria-valuenow', percentLoaded).css('width', percentLoaded +'%');
+				progress.find('sr-only').text(percentLoaded +'% loaded...')
+			}
+		}
+	}
+
+	function handleFileSelect(evt) {
+		// Reset progress indicator on new file selection.
+		progress.css('width', '0%');
+		progress.find('sr-only').text('0% loaded...')
+
+		reader = new FileReader();
+		reader.onerror = errorHandler;
+		reader.onprogress = updateProgress;
+		reader.onabort = function(e) {
+			consoleWarn('file loading canceled.')
+		};
+		reader.onloadstart = function(e) {
+		};
+		reader.onload = function(e) {
+			// Ensure that the progress bar displays 100% at the end.
+			progress.css('width', '100%');
+			progress.find('sr-only').text('Loading completed.');
+			setTimeout("progress.removeClass('progress-bar-info').addClass('progress-bar-success').parent().removeClass('active')", 2000);
+			setTimeout("$j('.modal-footer .btn').toggleClass('hide');", 2000);
+		}
+
+		// Read in the image file as a binary string.
+		reader.readAsBinaryString(evt.target.files[0]);
+	}
+
+	document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>
+
 
 </body>
 </html>
