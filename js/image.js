@@ -24,11 +24,13 @@ Image.prototype.setColorMode = function() {
 
 		switch(selectedColorMode){
 			case 'multicolor':
+				that.pixelWidth = 2;
 				history.addAction('setColorMode('+ selectedColorMode +')');
 				that.colorMode = selectedColorMode;
 				that.showImage();
 				break;
 			case 'hires':
+				that.pixelWidth = 1;
 				history.addAction('setColorMode('+ selectedColorMode +')');
 				that.colorMode = selectedColorMode;
 				that.showImage();
@@ -37,6 +39,7 @@ Image.prototype.setColorMode = function() {
 				consoleError('color mode not supported: '+ colorMode);
 				return false;
 		}
+		gui.initCoordinates();
 	});
 };
 
@@ -134,7 +137,18 @@ Image.prototype.showImage = function() {
 	var pixelHeight = gui.canvasZoom;
 	var pixelWidth = that.pixelWidth*gui.canvasZoom;
 
+	
+	
+	
+	/* MOUSE */
+	var canvasGridTag = '<canvas id="mouse" class="canvas" height="'+ (that.canvasHeight*gui.canvasZoom) +'" width="'+ (that.canvasWidth*gui.canvasZoom) +'"></canvas>';
+	if($j('canvas#mouse').length > 0) { $j('canvas#mouse').remove(); }
+	canvas.append(canvasGridTag);
+	var layerMouse = document.getElementById("mouse");
+	var ctxMouse = layerMouse.getContext("2d");
+	ctxMouse.clearRect(0,0,that.canvasWidth*gui.canvasZoom,that.canvasHeight*gui.canvasZoom);
 
+	
 
 	/* GRID */
 	var canvasGridTag = '<canvas id="grid" class="canvas" height="'+ (that.canvasHeight*gui.canvasZoom) +'" width="'+ (that.canvasWidth*gui.canvasZoom) +'"></canvas>';

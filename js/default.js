@@ -22,6 +22,7 @@ $j(document).ready(function() {
 	image.showDataAsFormat('kla');
 //	image.showDataAsFormat(imgData, 'ddl');
 
+	//gui.getMouseCoordinates();
 	consoleTimeStop('default.js');
 });
 

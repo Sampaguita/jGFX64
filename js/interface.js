@@ -12,10 +12,13 @@ GUI.prototype.init = function() {
 	this.toolsAreVisible = true;
 	this.canvasHasGrid = false;
 	this.canvasZoom = 1;
+	this.mousePos = new Object();
+	this.coordinatesCorrection = 1;
 
 	this.resizeCanvas();
 	this.showGrid();
 	this.zoomCanvas();
+	this.initCoordinates();
 	this.updateHistory();
 };
 
@@ -32,13 +35,20 @@ GUI.prototype.showPaintTools = function() {
 
 GUI.prototype.resizeCanvas = function() {
 	var that = this;
+	that.mousePos['offX'] = '';
+	that.mousePos['offY'] = '';
 	var windowHeight = $j(window).height();
 	var windowWidth = $j(window).width();
 	if(that.toolsAreVisible == true) {
-		$j('#canvas').css('height', (windowHeight-200) +'px');
+		$j('#canvas').css('height', (windowHeight-150) +'px');
 	} else {
-
+		// do something
 	}
+	$j('#canvas').on('scroll', function() {
+		var pos = $j(this).find('#canvas-display').position();
+		that.mousePos['offX'] = pos.left;
+		that.mousePos['offY'] = pos.top;
+	});
 };
 
 GUI.prototype.showGrid = function() {
@@ -79,8 +89,51 @@ GUI.prototype.zoomCanvas = function() {
 		if((imageHeight > canvasHeight) || (imageWidth > canvasWidth)) {
 			$j('#canvas').addClass('bigImage');
 		}
+		that.initCoordinates();
 	});
 	$j('#canvas-display').addClass('zoom-'+ that.canvasZoom);
+};
+
+GUI.prototype.getMouseCoordinates = function() {
+	var that = this;
+	that.mousePos['x'] = '';
+	that.mousePos['y'] = '';
+	var tempMousePos = new Object();
+	var canvas = document.getElementById('mouse');
+	var canvasArea = canvas.getBoundingClientRect();
+	$j('#canvas #image #mouse').on('mousemove', function(e) {
+		var mOffX = (that.mousePos['offX'] < 0 ? that.mousePos['offX'] : 0);
+		var mOffY = (that.mousePos['offY'] < 0 ? that.mousePos['offY'] : 0);
+
+		var mX = Math.floor((e.clientX - canvasArea.left - mOffX)/that.canvasZoom/image.pixelWidth)+that.coordinatesCorrection;
+		var mY = Math.floor((e.clientY - canvasArea.top - mOffY)/that.canvasZoom)+that.coordinatesCorrection;
+
+		mX = (mX>=0 ? mX : '');
+		mY = (mY>=0 ? mY : '');
+
+		that.mousePos['x'] = mX;
+		that.mousePos['y'] = mY;
+	});
+	$j('#canvas #image #mouse').on('mouseout', function(e) {
+		that.mousePos['x'] = '';
+		that.mousePos['y'] = '';
+	});
+};
+
+GUI.prototype.initCoordinates = function() {
+	var that = this;
+	if($j('#mouse').length > 0) {
+		setTimeout('gui.getMouseCoordinates()', 100);
+		setInterval('gui.showCoordinates()', 100);
+	} else {
+		setTimeout('gui.initCoordinates()', 100);
+	}
+	
+};
+
+GUI.prototype.showCoordinates = function() {
+	var that = this;
+	$j('#coords').text('X:'+ that.mousePos['x'] +' | Y:'+ that.mousePos['y']);
 };
 
 GUI.prototype.updateHistory = function() {
