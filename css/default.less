@@ -341,7 +341,23 @@ fieldset {
 			}
 			#image {
 				display: inline-block;
+				position: relative;
 				vertical-align: middle;
+
+				#grid {
+					display: none;
+					left: 0;
+					position: absolute;
+					top: 0;
+					z-index: 100;
+				}
+				#pixel {
+					float: left;
+				}
+			}
+
+			&.hasGrid #image #grid {
+				display: block;
 			}
 
 			.canvas-background {
@@ -351,196 +367,11 @@ fieldset {
 			.canvas-block, .pixel {
 				float: left;
 			}
-			/*
-			.canvas-block {
-				box-shadow: 0 0 1px @white;
-			}
-			.canvas-block:hover {
-				box-shadow: 0 0 1px @white, 0 0 1px @white, 0 0 1px @white;
-			}
-			.pixelwidth-1, .pixelwidth-2 {
-				box-shadow: inset 0 0 1px @greymedium;
-			}
-			*/
-			.pixel:hover {
-				box-shadow: inset 0 0 1px @red, inset 0 0 1px @red, inset 0 0 1px @red;
-			}
-		}
-		#canvas-display.hasGrid .canvas-block {
-			box-shadow: 0 0 1px @white;
-		}
-		#canvas-display {
-			@zoomFactor: 1.00;
-			min-height: (@imageHeight * @zoomFactor);
-			min-width: (@imageWidth * @zoomFactor);
-
-			#image {
-				height: (@imageHeight * @zoomFactor);
-				width: (@imageWidth * @zoomFactor);
-			}
-			.canvas-block {
-				width: (8px * @zoomFactor);
-			}
-			.pixelwidth-1 {
-				height: (1px * @zoomFactor);
-				width: (1px * @zoomFactor);
-			}
-			.pixelwidth-2 {
-				height: (1px * @zoomFactor);
-				width: (2px * @zoomFactor);
-			}
-		}
-		#canvas-display.zoom-2 {
-			@zoomFactor: 2.00;
-			min-height: (@imageHeight * @zoomFactor);
-			min-width: (@imageWidth * @zoomFactor);
-
-			#image {
-				height: (@imageHeight * @zoomFactor);
-				width: (@imageWidth * @zoomFactor);
-			}
-			.canvas-block {
-				width: (8px * @zoomFactor);
-			}
-			.pixelwidth-1 {
-				height: (1px * @zoomFactor);
-				width: (1px * @zoomFactor);
-			}
-			.pixelwidth-2 {
-				height: (1px * @zoomFactor);
-				width: (2px * @zoomFactor);
-			}
-		}
-		#canvas-display.zoom-3 {
-			@zoomFactor: 3.00;
-			min-height: (@imageHeight * @zoomFactor);
-			min-width: (@imageWidth * @zoomFactor);
-
-			#image {
-				height: (@imageHeight * @zoomFactor);
-				width: (@imageWidth * @zoomFactor);
-			}
-			.canvas-block {
-				width: (8px * @zoomFactor);
-			}
-			.pixelwidth-1 {
-				height: (1px * @zoomFactor);
-				width: (1px * @zoomFactor);
-			}
-			.pixelwidth-2 {
-				height: (1px * @zoomFactor);
-				width: (2px * @zoomFactor);
-			}
-		}
-		#canvas-display.zoom-4 {
-			@zoomFactor: 4.00;
-			min-height: (@imageHeight * @zoomFactor);
-			min-width: (@imageWidth * @zoomFactor);
-
-			#image {
-				height: (@imageHeight * @zoomFactor);
-				width: (@imageWidth * @zoomFactor);
-			}
-			.canvas-block {
-				width: (8px * @zoomFactor);
-			}
-			.pixelwidth-1 {
-				height: (1px * @zoomFactor);
-				width: (1px * @zoomFactor);
-			}
-			.pixelwidth-2 {
-				height: (1px * @zoomFactor);
-				width: (2px * @zoomFactor);
-			}
-		}
-		#canvas-display.zoom-5 {
-			@zoomFactor: 5.00;
-			min-height: (@imageHeight * @zoomFactor);
-			min-width: (@imageWidth * @zoomFactor);
-
-			#image {
-				height: (@imageHeight * @zoomFactor);
-				width: (@imageWidth * @zoomFactor);
-			}
-			.canvas-block {
-				width: (8px * @zoomFactor);
-			}
-			.pixelwidth-1 {
-				height: (1px * @zoomFactor);
-				width: (1px * @zoomFactor);
-			}
-			.pixelwidth-2 {
-				height: (1px * @zoomFactor);
-				width: (2px * @zoomFactor);
-			}
-		}
-		#canvas-display.zoom-6 {
-			@zoomFactor: 6.00;
-			min-height: (@imageHeight * @zoomFactor);
-			min-width: (@imageWidth * @zoomFactor);
-
-			#image {
-				height: (@imageHeight * @zoomFactor);
-				width: (@imageWidth * @zoomFactor);
-			}
-			.canvas-block {
-				width: (8px * @zoomFactor);
-			}
-			.pixelwidth-1 {
-				height: (1px * @zoomFactor);
-				width: (1px * @zoomFactor);
-			}
-			.pixelwidth-2 {
-				height: (1px * @zoomFactor);
-				width: (2px * @zoomFactor);
-			}
-		}
-		#canvas-display.zoom-8 {
-			@zoomFactor: 8.00;
-			min-height: (@imageHeight * @zoomFactor);
-			min-width: (@imageWidth * @zoomFactor);
-
-			#image {
-				height: (@imageHeight * @zoomFactor);
-				width: (@imageWidth * @zoomFactor);
-			}
-			.canvas-block {
-				width: (8px * @zoomFactor);
-			}
-			.pixelwidth-1 {
-				height: (1px * @zoomFactor);
-				width: (1px * @zoomFactor);
-			}
-			.pixelwidth-2 {
-				height: (1px * @zoomFactor);
-				width: (2px * @zoomFactor);
-			}
-		}
-		#canvas-display.zoom-12 {
-			@zoomFactor: 12.00;
-			min-height: (@imageHeight * @zoomFactor);
-			min-width: (@imageWidth * @zoomFactor);
-
-			#image {
-				height: (@imageHeight * @zoomFactor);
-				width: (@imageWidth * @zoomFactor);
-			}
-			.canvas-block {
-				width: (8px * @zoomFactor);
-			}
-			.pixelwidth-1 {
-				height: (1px * @zoomFactor);
-				width: (1px * @zoomFactor);
-			}
-			.pixelwidth-2 {
-				height: (1px * @zoomFactor);
-				width: (2px * @zoomFactor);
-			}
 		}
 	}
 
 	#canvas.bigImage {
-		#image {
+		#canvas-display #image {
 			left: 0;
 			position: absolute;
 			top: 0;

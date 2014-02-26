@@ -65,23 +65,22 @@ GUI.prototype.showGrid = function() {
 GUI.prototype.zoomCanvas = function() {
 	var that = this;
 	$j('#workspace #canvas-zoom').on('change', function() {
+		$j('#canvas').removeClass('bigImage');
 		$j('#canvas-display').removeClass('zoom-'+ that.canvasZoom);
 		that.canvasZoom = $j(this).val();
+		image.showImage();
 		$j('#canvas-display').addClass('zoom-'+ that.canvasZoom);
 
 		var canvasHeight = $j('#canvas').height();
 		var canvasWidth = $j('#canvas').width();
-		var imageHeight = $j('#canvas #image').height();
-		var imageWidth = $j('#canvas #image').width();
+		var imageHeight = $j('#canvas #image #pixel').height();
+		var imageWidth = $j('#canvas #image #pixel').width();
 		consoleLog(canvasHeight +'x'+ canvasWidth +'|'+ imageHeight +'x'+ imageWidth);
 		if((imageHeight > canvasHeight) || (imageWidth > canvasWidth)) {
 			$j('#canvas').addClass('bigImage');
-		} else {
-			$j('#canvas').removeClass('bigImage');
 		}
 	});
 	$j('#canvas-display').addClass('zoom-'+ that.canvasZoom);
-
 };
 
 GUI.prototype.updateHistory = function() {

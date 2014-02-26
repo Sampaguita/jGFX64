@@ -10,6 +10,9 @@ Image.prototype.init = function() {
 	this.data = [];
 	this.colorMode = 'multicolor'; //hires|multicolor
 	this.pixelWidth = 2;
+	this.canvasWidth = 320;
+	this.canvasHeight = 200;
+	this.lineHeight = 8;
 
 	this.setColorMode();
 };
@@ -114,14 +117,65 @@ Image.prototype.showImage = function() {
 	var that = this;
 	var color = new Array();
 	var canvas = $j('#canvas-display #image');
-	var canvasContent = '';
-	canvas.addClass('color-0'+ (Bin2Hex(that.data.bgColor)));
+	var canvasContent = false;
+	var gfxLine = 0;
+	var gfxBlock = 0;
+	var gfxBlockLine = 0;
+	switch(that.colorMode) {
+		case 'multicolor':
+			that.pixelWidth = 2;
+			break;
+		case 'hires':
+			that.pixelWidth = 1;
+			break;
+		default:
+			consoleError('no color mode set!');
+	}
+	var pixelHeight = gui.canvasZoom;
+	var pixelWidth = that.pixelWidth*gui.canvasZoom;
+
+
+
+	/* GRID */
+	var canvasGridTag = '<canvas id="grid" class="canvas" height="'+ (that.canvasHeight*gui.canvasZoom) +'" width="'+ (that.canvasWidth*gui.canvasZoom) +'"></canvas>';
+	if($j('canvas#grid').length > 0) { $j('canvas#grid').remove(); }
+	canvas.append(canvasGridTag);
+	var layerGrid = document.getElementById("grid");
+	var ctxGrid = layerGrid.getContext("2d");
+	ctxGrid.clearRect(0,0,that.canvasWidth*gui.canvasZoom,that.canvasHeight*gui.canvasZoom);
+
+	var linesV = that.canvasHeight/that.lineHeight;
+	var linesH = that.canvasWidth/that.lineHeight;
+	ctxGrid.strokeStyle = "rgba(255,255,255,0.33)";
+	for(var i=1; i<linesV; i++) {
+		ctxGrid.beginPath();
+		ctxGrid.moveTo(0,(i*that.lineHeight*gui.canvasZoom)+0.5);
+		ctxGrid.lineTo(that.canvasWidth*gui.canvasZoom,(i*that.lineHeight*gui.canvasZoom)+0.5);
+		ctxGrid.stroke();
+	}
+	for(var i=1; i<linesH; i++) {
+		ctxGrid.beginPath();
+		ctxGrid.moveTo((i*that.lineHeight*gui.canvasZoom)+0.5,0);
+		ctxGrid.lineTo((i*that.lineHeight*gui.canvasZoom)+0.5,that.canvasWidth*gui.canvasZoom);
+		ctxGrid.stroke();
+	}
+
+
+
+
+	/* IMAGE */
+	var canvasPixelTag = '<canvas id="pixel" class="canvas" height="'+ (that.canvasHeight*gui.canvasZoom) +'" width="'+ (that.canvasWidth*gui.canvasZoom) +'"></canvas>';
+	if($j('canvas#pixel').length > 0) { $j('canvas#pixel').remove(); }
+	canvas.append(canvasPixelTag);
+	var layerPixel = document.getElementById("pixel");
+	var ctxPixel = layerPixel.getContext("2d");
+	ctxPixel.clearRect(0,0,that.canvasWidth*gui.canvasZoom,that.canvasHeight*gui.canvasZoom);
 
 	for(var i=0; i<1000; i++) {
-		canvasContent += '<div class="canvas-block">';
 		for(var j=0; j<8; j++) {
 			var bitmapValue = that.data.bitmap[(i*8)+j];
-			for(var k=0; k<(8/that.pixelWidth); k++) {
+			var pixelsPerLine = 8/that.pixelWidth;
+			for(var k=0; k<pixelsPerLine; k++) {
 				var pixelValue = Bin2Hex(bitmapValue.substr((k*that.pixelWidth),that.pixelWidth));
 
 				switch(that.colorMode) {
@@ -130,21 +184,31 @@ Image.prototype.showImage = function() {
 						color[1] = Bin2Hex(that.data.screenRAM[i].substr(0,4));
 						color[2] = Bin2Hex(that.data.screenRAM[i].substr(4,4));
 						color[3] = Bin2Hex(that.data.colorRAM[i].substr(4,4));
-						that.pixelWidth = 2;
 						break;
 					case 'hires':
 						color[0] = Bin2Hex(that.data.bgColor);
 						color[1] = Bin2Hex(that.data.screenRAM[i].substr(4,4));
 						color[2] = Bin2Hex(that.data.screenRAM[i].substr(0,4));
-						that.pixelWidth = 1;
 						break;
 					default:
 						consoleError('no color mode set!');
 				}
-				canvasContent += '<div class="pixel color-0'+ color[pixelValue] +' pixelwidth-'+ that.pixelWidth +'"></div>';
+				var pixelPosX = (gfxBlock*that.lineHeight*gui.canvasZoom) + (k*pixelWidth);
+				var pixelPosY = (gfxBlockLine*that.lineHeight*gui.canvasZoom) + (gfxLine*pixelHeight);
+				var pixelColor = colorPalette[palette.currentPalette][color[pixelValue]];
+
+//				if((i==0) && (j<2)){
+//					consoleLog('Pixel#'+ k +' Color('+ pixelColor +') Line#'+ gfxLine +' Block#'+ gfxBlock +' BlockLine#'+ gfxBlockLine);
+//					consoleInfo('X'+ pixelPosX +' Y'+ pixelPosY +' H'+ pixelHeight +' W'+ pixelWidth);
+//				}
+				ctxPixel.fillStyle = pixelColor;
+				ctxPixel.fillRect(pixelPosX,pixelPosY,pixelWidth,pixelHeight);
+
+				if(k==(pixelsPerLine-1)) { gfxLine = gfxLine+1 };
+				if(gfxLine==that.lineHeight) { gfxBlock = gfxBlock+1; gfxLine=0; }
+				if(gfxBlock==40) { gfxBlockLine = gfxBlockLine+1; gfxBlock=0; gfxLine=0; }
 			}
 		}
-		canvasContent += '</div>';
 	}
 	if(canvas.find('.canvas-block').length > 0) {
 		canvas.find('.canvas-block').remove();

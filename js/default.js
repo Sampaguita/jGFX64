@@ -3,9 +3,10 @@ _globalVar = {
 };
 consoleTimeStart('default.js');
 var history = new Actionstack();
-var gui = new GUI();
 var imgData = new Data();
+var palette = new Palette();
 var image = new Image();
+var gui = new GUI();
 
 
 $j(document).ready(function() {
@@ -34,11 +35,11 @@ var initGUI = function() {
 		e.preventDefault();
 		gui.setTheme($j(this).attr('data-content'));
 	});
-	var palette = new Palette();
 	palette.setPalette('palette-c64-pepto');
 	$j('.setColorPalette').on('click', function(e) {
 		e.preventDefault();
 		palette.setPalette($j(this).attr('data-content'));
+		image.showImage();
 	});
 };
 
