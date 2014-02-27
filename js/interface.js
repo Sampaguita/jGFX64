@@ -89,7 +89,11 @@ GUI.prototype.zoomCanvas = function() {
 		if((imageHeight > canvasHeight) || (imageWidth > canvasWidth)) {
 			$j('#canvas').addClass('bigImage');
 		}
-		that.initCoordinates();
+
+		// dirty but highly efficient bugfix to correct the coordinates after changing the zoom
+		$j('#image').hide();
+		setTimeout("$j('#image').show()", 10);
+		setTimeout("gui.initCoordinates()", 20);
 	});
 	$j('#canvas-display').addClass('zoom-'+ that.canvasZoom);
 };
