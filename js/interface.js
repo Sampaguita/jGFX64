@@ -92,7 +92,7 @@ GUI.prototype.zoomCanvas = function() {
 
 		// dirty but highly efficient bugfix to correct the coordinates after changing the zoom
 		$j('#image').hide();
-		setTimeout("$j('#image').show()", 10);
+		setTimeout("$j('#image').css('display','')", 10);
 		setTimeout("gui.initCoordinates()", 20);
 	});
 	$j('#canvas-display').addClass('zoom-'+ that.canvasZoom);
