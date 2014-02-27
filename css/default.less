@@ -629,7 +629,24 @@ body.bluescreenTheme {
 
 
 
+@media (min-width: 1600px) {
+	body > .container {
+		width: 98%;
 
+		.col-md-1 {
+			width: 6%;
+			> div, > div > ul {
+				max-width: 90px;
+			}
+		}
+		.col-md-2 {
+			width: 12%;
+		}
+		.col-md-9 {
+			width: 82%;
+		}
+	}
+}
 
 @media screen and (min-width: 768px) {
 	.modal-dialog {
