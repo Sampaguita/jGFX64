@@ -179,7 +179,7 @@ fieldset {
 	margin: 10px;
 	padding: 0;
 	position: relative;
-	z-index: 100000;
+	z-index: 1030;
 
 	> div {
 		background: linear-gradient(to bottom, rgba(183,4,6,0) 9%,rgba(183,4,6,1) 9%,rgba(183,4,6,1) 18%,rgba(183,4,6,0) 18%,rgba(221,79,1,0) 27%,rgba(221,79,1,1) 27%,rgba(221,79,1,1) 36%,rgba(221,79,1,0) 36%,rgba(226,226,18,0) 45%,rgba(226,226,18,1) 45%,rgba(226,226,18,1) 54%,rgba(226,226,18,0) 54%,rgba(28,175,29,0) 63%,rgba(28,175,29,1) 63%,rgba(28,175,29,1) 72%,rgba(28,175,29,0) 72%,rgba(70,128,146,0) 81%,rgba(70,128,146,1) 81%,rgba(70,128,146,1) 90%,rgba(70,128,146,0) 90%);
@@ -253,6 +253,23 @@ fieldset {
 	}
 }
 
+body {
+	#image {
+		cursor: crosshair !important;
+	}
+	&.mode-paint {
+		#image {
+			cursor: url("../img/cursor_paint.png"), auto !important;
+		}
+	}
+	&.mode-erase {
+		#image {
+			cursor: url("../img/cursor_erase.png"), auto !important;
+		}
+	}
+}
+
+
 /* - colorPalette ----------------------------------------------------------------------------------------------------- */
 #colorPalette {
 
@@ -303,6 +320,7 @@ fieldset {
 
 /* - canvas ----------------------------------------------------------------------------------------------------- */
 #workspace {
+	z-index: 1020;
 
 	h2 {
 		display: none;
@@ -469,6 +487,9 @@ body.darkTheme {
 	#colorPalette li:hover {
 		border-color: @hoverColor;
 	}
+	#paintTools li.active {
+		background: @hoverColor;
+	}
 	.modal-content {
 		background: @greylow;
 	}
@@ -524,6 +545,9 @@ body.lightTheme {
 	}
 	#colorPalette li:hover {
 		border-color: @hoverColor;
+	}
+	#paintTools li.active {
+		background: @hoverColor;
 	}
 	.modal-content {
 		background: @greylight;
@@ -584,6 +608,9 @@ body.bluescreenTheme {
 	#colorPalette li:hover {
 		border-color: @hoverColor;
 	}
+	#paintTools li.active {
+		background: @hoverColor;
+	}
 	#workspace #canvas #canvas-display {
 		background: @bluedark;
 	}
@@ -595,5 +622,17 @@ body.bluescreenTheme {
 	}
 	.close, .close:focus, .close:hover {
 		color: @white;
+	}
+}
+
+
+
+
+
+
+
+@media screen and (min-width: 768px) {
+	.modal-dialog {
+		margin: 70px auto;
 	}
 }

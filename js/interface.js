@@ -9,6 +9,8 @@ var GUI = function() {
 GUI.prototype.init = function() {
 	this.defaultTheme = "darkTheme";
 	this.currentTheme = '';
+	this.defaultTool = 'paint';
+	this.currentTool = '';
 	this.toolsAreVisible = true;
 	this.canvasHasGrid = false;
 	this.canvasZoom = 1;
@@ -29,8 +31,19 @@ GUI.prototype.setTheme = function(theme) {
 	this.currentTheme = theme;
 };
 
-GUI.prototype.showPaintTools = function() {
+GUI.prototype.setTool = function(tool) {
 	var that = this;
+	if(typeof(tool) !== "string") {tool = that.defaultTool;}
+	$j('body').removeClass('mode-'+ that.currentTool).addClass('mode-'+ tool);
+	$j('#paintTools ul li').removeClass('active');
+	$j('#paintTools ul li.icon-'+ tool).addClass('active');
+	$j('#paintTools ul li:not(.unavailable)').on('click', function() {
+		$j('#paintTools ul li:not(.unavailable)').off();
+		$j(this).removeClass('active');
+		var selectedTool = $j(this).attr('class').substr(5);
+		that.setTool(selectedTool);
+	});
+	this.currentTool = tool;
 };
 
 GUI.prototype.resizeCanvas = function() {
@@ -122,13 +135,19 @@ GUI.prototype.getMouseCoordinates = function() {
 		that.mousePos['x'] = '';
 		that.mousePos['y'] = '';
 	});
+	$j('#canvas #image #mouse').on('mousedown', function(e) {
+		$j('#coords').css('color','red');
+	});
+	$j('#canvas #image #mouse').on('mouseup', function(e) {
+		$j('#coords').css('color','');
+	});
 };
 
 GUI.prototype.initCoordinates = function() {
 	var that = this;
 	if($j('#mouse').length > 0) {
-		setTimeout('gui.getMouseCoordinates()', 100);
-		setInterval('gui.showCoordinates()', 100);
+		setTimeout('gui.getMouseCoordinates()', 10);
+		setInterval('gui.showCoordinates()', 10);
 	} else {
 		setTimeout('gui.initCoordinates()', 100);
 	}

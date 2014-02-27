@@ -32,6 +32,7 @@ $j(document).ready(function() {
 
 var initGUI = function() {
 	gui.setTheme();
+	gui.setTool();
 	$j('.setTheme').on('click', function(e) {
 		e.preventDefault();
 		gui.setTheme($j(this).attr('data-content'));
