@@ -136,10 +136,32 @@ GUI.prototype.getMouseCoordinates = function() {
 		that.mousePos['y'] = '';
 	});
 	$j('#canvas #image #mouse').on('mousedown', function(e) {
-		$j('#coords').css('color','red');
+		e.preventDefault();
+		switch (e.which) {
+			case 1:
+				// left mouse button
+				$j('#coords').css('color','red');
+				break;
+			case 2:
+				// middle mouse button
+				$j('#coords').css('color','green');
+				break;
+			case 3:
+				// right mouse button
+				$j('#coords').css('color','blue');
+				break;
+			default:
+				$j('#coords').css('color','cyan');
+		}
 	});
 	$j('#canvas #image #mouse').on('mouseup', function(e) {
 		$j('#coords').css('color','');
+	});
+
+	// prevent the browser to show the context menu
+	$j(document).bind("contextmenu",function(e){
+		e.preventDefault();
+		return false;
 	});
 };
 
