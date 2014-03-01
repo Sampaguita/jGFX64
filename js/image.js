@@ -113,10 +113,58 @@ Image.prototype.showDataAsFormat = function(format) {
 			consoleError('Image.prototype.showDataAsFormat: format unknown or not supported!', format);
 			return false;
 	}
+	that.showMouseLayer();
+	that.showGridLayer();
 	that.showImage();
 };
 
-Image.prototype.showImage = function() {
+Image.prototype.showMouseLayer = function() {
+	var that = this;
+	var canvas = $j('#canvas-display #image');
+	switch(that.colorMode) {
+		case 'multicolor':
+			that.pixelWidth = 2;
+			break;
+		case 'hires':
+			that.pixelWidth = 1;
+			break;
+		default:
+			consoleError('no color mode set!');
+	}
+
+	
+	/* MOUSE */
+	var canvasMouseTag = '<canvas id="mouse" class="canvas" height="'+ (that.canvasHeight*gui.canvasZoom) +'" width="'+ (that.canvasWidth*gui.canvasZoom) +'"></canvas>';
+	if($j('canvas#mouse').length > 0) { $j('canvas#mouse').remove(); }
+	canvas.append(canvasMouseTag);
+	var layerMouse = document.getElementById("mouse");
+	var ctxMouse = layerMouse.getContext("2d");
+	ctxMouse.clearRect(0,0,that.canvasWidth*gui.canvasZoom,that.canvasHeight*gui.canvasZoom);
+};
+
+Image.prototype.updateMouseLayer = function() {
+	var that = this;
+	var pixelHeight = gui.canvasZoom;
+	var pixelWidth = that.pixelWidth*gui.canvasZoom;
+	var cursorColor = 'rgb(255,0,0)';
+	var layerMouse = document.getElementById("mouse");
+	var ctxMouse = layerMouse.getContext("2d");
+
+	ctxMouse.clearRect(0,0,that.canvasWidth*gui.canvasZoom,that.canvasHeight*gui.canvasZoom);
+	if(gui.mousePos['x'] !== false) {
+//		ctxMouse.fillStyle = cursorColor;
+//		ctxMouse.fillRect(gui.mousePos['x']*gui.canvasZoom*that.pixelWidth,gui.mousePos['y']*gui.canvasZoom,pixelWidth,pixelHeight);
+
+		ctxMouse.beginPath();
+		ctxMouse.rect((gui.mousePos['x']*gui.canvasZoom*that.pixelWidth)+0.5,(gui.mousePos['y']*gui.canvasZoom)+0.5,pixelWidth,pixelHeight);
+		ctxMouse.lineWidth = 1;
+		ctxMouse.strokeStyle = cursorColor;
+		ctxMouse.stroke();
+
+	}
+};
+
+Image.prototype.showGridLayer = function() {
 	var that = this;
 	var color = new Array();
 	var canvas = $j('#canvas-display #image');
@@ -137,18 +185,6 @@ Image.prototype.showImage = function() {
 	var pixelHeight = gui.canvasZoom;
 	var pixelWidth = that.pixelWidth*gui.canvasZoom;
 
-	
-	
-	
-	/* MOUSE */
-	var canvasGridTag = '<canvas id="mouse" class="canvas" height="'+ (that.canvasHeight*gui.canvasZoom) +'" width="'+ (that.canvasWidth*gui.canvasZoom) +'"></canvas>';
-	if($j('canvas#mouse').length > 0) { $j('canvas#mouse').remove(); }
-	canvas.append(canvasGridTag);
-	var layerMouse = document.getElementById("mouse");
-	var ctxMouse = layerMouse.getContext("2d");
-	ctxMouse.clearRect(0,0,that.canvasWidth*gui.canvasZoom,that.canvasHeight*gui.canvasZoom);
-
-	
 
 	/* GRID */
 	var canvasGridTag = '<canvas id="grid" class="canvas" height="'+ (that.canvasHeight*gui.canvasZoom) +'" width="'+ (that.canvasWidth*gui.canvasZoom) +'"></canvas>';
@@ -174,7 +210,29 @@ Image.prototype.showImage = function() {
 		ctxGrid.stroke();
 	}
 
+	return false;
+};
 
+Image.prototype.showImage = function() {
+	var that = this;
+	var color = new Array();
+	var canvas = $j('#canvas-display #image');
+	var canvasContent = false;
+	var gfxLine = 0;
+	var gfxBlock = 0;
+	var gfxBlockLine = 0;
+	switch(that.colorMode) {
+		case 'multicolor':
+			that.pixelWidth = 2;
+			break;
+		case 'hires':
+			that.pixelWidth = 1;
+			break;
+		default:
+			consoleError('no color mode set!');
+	}
+	var pixelHeight = gui.canvasZoom;
+	var pixelWidth = that.pixelWidth*gui.canvasZoom;
 
 
 	/* IMAGE */
@@ -229,8 +287,6 @@ Image.prototype.showImage = function() {
 	}
 	canvas.append(canvasContent);
 };
-
-
 
 
 
