@@ -62,6 +62,10 @@ GUI.prototype.resizeCanvas = function() {
 		that.mousePos['offX'] = pos.left;
 		that.mousePos['offY'] = pos.top;
 	});
+	$j(window).on('resize', function() {
+		$j(window).off();
+		that.resizeCanvas();
+	});
 };
 
 GUI.prototype.showGrid = function() {
