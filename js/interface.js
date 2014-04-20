@@ -16,6 +16,11 @@ GUI.prototype.init = function() {
 	this.canvasZoom = 1;
 	this.mousePos = new Object();
 	this.coordinatesCorrection = 1;
+	this.buttonDown = 0;
+	this.defaultColor = 0;
+//	this.currentColor = false;
+	this.currentColor = '#f00';
+
 
 	this.resizeCanvas();
 	this.showGrid();
@@ -98,6 +103,7 @@ GUI.prototype.zoomCanvas = function() {
 		image.showMouseLayer();
 		image.showGridLayer();
 		image.showImage();
+		image.updateLayers();
 		$j('#canvas-display').addClass('zoom-'+ that.canvasZoom);
 
 		var canvasHeight = $j('#canvas').height();
@@ -136,6 +142,9 @@ GUI.prototype.getMouseCoordinates = function() {
 
 		that.mousePos['x'] = mX;
 		that.mousePos['y'] = mY;
+		if(that.buttonDown > 0) {
+			image.useTool(that.buttonDown);
+		}
 	});
 	$j('#canvas #image #mouse').on('mouseout', function(e) {
 		that.mousePos['x'] = false;
@@ -144,25 +153,35 @@ GUI.prototype.getMouseCoordinates = function() {
 	});
 	$j('#canvas #image #mouse').on('mousedown', function(e) {
 		e.preventDefault();
+		var layerId = image.addLayer();
+		image.setLayer(layerId);
 		switch (e.which) {
 			case 1:
 				// left mouse button
 				$j('#coords').css('color','red');
+				that.buttonDown = 1;
 				break;
 			case 2:
 				// middle mouse button
 				$j('#coords').css('color','green');
+				that.buttonDown = 2;
 				break;
 			case 3:
 				// right mouse button
 				$j('#coords').css('color','blue');
+				that.buttonDown = 3;
 				break;
 			default:
 				$j('#coords').css('color','cyan');
+				that.buttonDown = 0;
+		}
+		if(that.buttonDown > 0) {
+			image.useTool(that.buttonDown);
 		}
 	});
-	$j('#canvas #image #mouse').on('mouseup', function(e) {
+	$j('#canvas #image #mouse').on('mouseup mouseout', function(e) {
 		$j('#coords').css('color','');
+		that.buttonDown = 0;
 	});
 
 	// prevent the browser to show the context menu

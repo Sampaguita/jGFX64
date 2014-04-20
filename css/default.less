@@ -371,22 +371,25 @@ body {
 				position: relative;
 				vertical-align: middle;
 
-				#mouse {
+				.canvas {
 					display: block;
 					left: 0;
 					position: absolute;
 					top: 0;
-					z-index: 1000;
+					z-index: 1000000;
+				}
+				#mouse {
+					display: block;
+					z-index: 100000000;
 				}
 				#grid {
 					display: none;
-					left: 0;
-					position: absolute;
-					top: 0;
-					z-index: 100;
+					z-index: 10000000;
 				}
 				#pixel {
 					float: left;
+					position: relative;
+					z-index: 100;
 				}
 			}
 

@@ -13,6 +13,7 @@ Image.prototype.init = function() {
 	this.canvasWidth = 320;
 	this.canvasHeight = 200;
 	this.lineHeight = 8;
+	this.paintLayer = false;
 
 	this.setColorMode();
 };
@@ -151,7 +152,7 @@ Image.prototype.updateMouseLayer = function() {
 	var ctxMouse = layerMouse.getContext("2d");
 
 	ctxMouse.clearRect(0,0,that.canvasWidth*gui.canvasZoom,that.canvasHeight*gui.canvasZoom);
-	if(gui.mousePos['x'] !== false) {
+	if((gui.mousePos['x'] !== false) && (gui.mousePos['y'] !== false)) {
 //		ctxMouse.fillStyle = cursorColor;
 //		ctxMouse.fillRect(gui.mousePos['x']*gui.canvasZoom*that.pixelWidth,gui.mousePos['y']*gui.canvasZoom,pixelWidth,pixelHeight);
 
@@ -288,11 +289,51 @@ Image.prototype.showImage = function() {
 	canvas.append(canvasContent);
 };
 
+Image.prototype.useTool = function(button) {
+	var that = this;
+	consoleLog('Tool: '+ gui.currentTool +' | Button: '+ button +' | Position: '+ gui.mousePos['x'] +','+ gui.mousePos['y']);
 
+	switch(gui.currentTool) {
+		case 'paint':
+			var pixelHeight = gui.canvasZoom;
+			var pixelWidth = that.pixelWidth*gui.canvasZoom;
 
+			that.paintLayer.fillStyle = gui.currentColor;
+			that.paintLayer.fillRect((gui.mousePos['x']*gui.canvasZoom*that.pixelWidth),(gui.mousePos['y']*gui.canvasZoom),pixelWidth,pixelHeight);
+			break;
+		default:
+			consoleWarn('Image.prototype.useTool: unknown tool!');
+	}
+	return false;
+};
 
+Image.prototype.addLayer = function() {
+	var that = this;
+	var canvas = $j('#canvas-display #image');
+	var unixtime_ms = new Date().getTime();
+	var paintLayerId = 'paint-'+ unixtime_ms;
+	var canvasPaintTag = '<canvas id="'+ paintLayerId +'" class="canvas" height="'+ (that.canvasHeight*gui.canvasZoom) +'" width="'+ (that.canvasWidth*gui.canvasZoom) +'"></canvas>';
 
+	canvas.append(canvasPaintTag);
+	var initPaintLayer = document.getElementById(paintLayerId);
+	that.paintLayer = initPaintLayer.getContext("2d");
+	that.paintLayer.clearRect(0,0,that.canvasWidth*gui.canvasZoom,that.canvasHeight*gui.canvasZoom);
 
+	return paintLayerId;
+};
+
+Image.prototype.setLayer = function(paintLayerId) {
+	var that = this;
+	var initPaintLayer = document.getElementById(paintLayerId);
+	that.paintLayer = initPaintLayer.getContext("2d");
+};
+
+Image.prototype.updateLayers = function() {
+	var that = this;
+	$j('.canvas:not(#grid,#mouse,#pixel)').each(function() {
+
+	});
+};
 
 
 
