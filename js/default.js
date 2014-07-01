@@ -43,6 +43,7 @@ var initGUI = function() {
 		palette.setPalette($j(this).attr('data-content'));
 		image.showImage();
 	});
+	$j('#workspace #canvas-zoom').trigger('change');
 };
 
 

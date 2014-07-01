@@ -108,12 +108,13 @@ GUI.prototype.zoomCanvas = function() {
 
 		var canvasHeight = $j('#canvas').height();
 		var canvasWidth = $j('#canvas').width();
-		var imageHeight = $j('#canvas #image #pixel').height();
-		var imageWidth = $j('#canvas #image #pixel').width();
+		var imageHeight = $j('#canvas #image #grid').height();
+		var imageWidth = $j('#canvas #image #grid').width();
 		consoleLog(canvasHeight +'x'+ canvasWidth +'|'+ imageHeight +'x'+ imageWidth);
 		if((imageHeight > canvasHeight) || (imageWidth > canvasWidth)) {
 			$j('#canvas').addClass('bigImage');
 		}
+		$j('#canvas #image').css({'height':imageHeight +'px','width':imageWidth +'px'});
 
 		// dirty but highly efficient bugfix to correct the coordinates after changing the zoom
 		$j('#image').hide();

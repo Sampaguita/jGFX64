@@ -216,6 +216,10 @@ Image.prototype.showGridLayer = function() {
 
 Image.prototype.showImage = function() {
 	var that = this;
+	if(that.bitmap == undefined) {
+		consoleWarn('no image found');
+		return false;
+	}
 	var color = new Array();
 	var canvas = $j('#canvas-display #image');
 	var canvasContent = false;
