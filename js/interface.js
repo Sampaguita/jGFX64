@@ -19,13 +19,14 @@ GUI.prototype.init = function() {
 	this.buttonDown = 0;
 	this.defaultColor = 0;
 //	this.currentColor = false;
-	this.currentColor = '#f00';
+	this.currentColor = '0';
 
 
 	this.resizeCanvas();
 	this.showGrid();
 	this.zoomCanvas();
 	this.initCoordinates();
+	this.initColorPalette();
 	this.updateHistory();
 };
 
@@ -143,7 +144,7 @@ GUI.prototype.getMouseCoordinates = function() {
 
 		that.mousePos['x'] = mX;
 		that.mousePos['y'] = mY;
-		if(that.buttonDown > 0) {
+		if(that.buttonDown !== 0) {
 			image.useTool(that.buttonDown);
 		}
 	});
@@ -176,7 +177,7 @@ GUI.prototype.getMouseCoordinates = function() {
 				$j('#coords').css('color','cyan');
 				that.buttonDown = 0;
 		}
-		if(that.buttonDown > 0) {
+		if(that.buttonDown !== 0) {
 			image.useTool(that.buttonDown);
 		}
 	});
@@ -229,3 +230,9 @@ GUI.prototype.updateHistory = function() {
 	}
 };
 
+GUI.prototype.initColorPalette = function() {
+	var that = this;
+	$j('#colorPalette li').on('click touchstart', function() {
+		that.currentColor = $j(this).attr('data-color');
+	});
+};

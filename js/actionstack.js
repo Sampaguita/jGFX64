@@ -7,7 +7,7 @@ var Actionstack = function() {
 };
 
 Actionstack.prototype.init = function() {
-	this.maxSteps = 10;
+	this.maxSteps = 30;
 	this.stack = [];
 };
 
@@ -15,7 +15,7 @@ Actionstack.prototype.init = function() {
 
 
 Actionstack.prototype.addAction = function(action) {
-	consoleDebug('adding action '+ action);
+//	consoleDebug('adding action '+ action);
 	var that = this;
 	if(that.stack.length >= that.maxSteps) {
 		that.stack.pop();

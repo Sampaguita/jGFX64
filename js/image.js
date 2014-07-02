@@ -272,7 +272,7 @@ Image.prototype.showImage = function() {
 				}
 				var pixelPosX = (gfxBlock*that.lineHeight*gui.canvasZoom) + (k*pixelWidth);
 				var pixelPosY = (gfxBlockLine*that.lineHeight*gui.canvasZoom) + (gfxLine*pixelHeight);
-				var pixelColor = colorPalette[palette.currentPalette][color[pixelValue]];
+				var pixelColor = that.getColorByPixelValuecolorPalette(pixelValue);
 
 //				if((i==0) && (j<2)){
 //					consoleLog('Pixel#'+ k +' Color('+ pixelColor +') Line#'+ gfxLine +' Block#'+ gfxBlock +' BlockLine#'+ gfxBlockLine);
@@ -293,12 +293,28 @@ Image.prototype.showImage = function() {
 	canvas.append(canvasContent);
 };
 
+Image.prototype.getColorByPixelValue = function(pixelValue) {
+	var that = this;
+	return (colorPalette[palette.currentPalette][pixelValue]);
+};
+
 Image.prototype.useTool = function(button) {
 	var that = this;
 	consoleLog('Tool: '+ gui.currentTool +' | Button: '+ button +' | Position: '+ gui.mousePos['x'] +','+ gui.mousePos['y']);
 
 	switch(gui.currentTool) {
 		case 'paint':
+			that.setPixelValue(gui.currentColor, (gui.mousePos['x']), (gui.mousePos['y']))
+
+			history.addAction('paint');
+			var pixelHeight = gui.canvasZoom;
+			var pixelWidth = that.pixelWidth*gui.canvasZoom;
+
+			that.paintLayer.fillStyle = that.getColorByPixelValue(gui.currentColor);
+			that.paintLayer.fillRect((gui.mousePos['x']*gui.canvasZoom*that.pixelWidth),(gui.mousePos['y']*gui.canvasZoom),pixelWidth,pixelHeight);
+			break;
+		case 'erase':
+			history.addAction('erase');
 			var pixelHeight = gui.canvasZoom;
 			var pixelWidth = that.pixelWidth*gui.canvasZoom;
 
@@ -306,9 +322,14 @@ Image.prototype.useTool = function(button) {
 			that.paintLayer.fillRect((gui.mousePos['x']*gui.canvasZoom*that.pixelWidth),(gui.mousePos['y']*gui.canvasZoom),pixelWidth,pixelHeight);
 			break;
 		default:
-			consoleWarn('Image.prototype.useTool: unknown tool!');
+			consoleWarn('Image.prototype.useTool: unknown tool! (value:'+ gui.currentTool +')');
 	}
 	return false;
+};
+
+Image.prototype.setPixelValue = function(newPixelvalue, posX, posY) {
+	var that = this;
+	consoleInfo('setPixelValue: '+ newPixelvalue +':'+ posX +':'+ posY);
 };
 
 Image.prototype.addLayer = function() {
