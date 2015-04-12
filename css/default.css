@@ -1,0 +1,678 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "jgfx";
+  src: url("../fonts/jgfx.eot");
+  src: url("../fonts/jgfx.eot?#iefix") format("embedded-opentype"), url("../fonts/jgfx.ttf") format("truetype"), url("../fonts/jgfx.svg#jgfx") format("svg"), url("../fonts/jgfx.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+[data-icon]:before {
+  font-family: "jgfx" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "jgfx" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-commodore-logo-small:before {
+  content: "a";
+}
+.icon-paint:before {
+  content: "b";
+}
+.icon-erase:before {
+  content: "c";
+}
+.icon-fill-mono:before {
+  content: "d";
+}
+.icon-fill-grad:before {
+  content: "e";
+}
+.icon-draw-rect:before {
+  content: "f";
+}
+.icon-draw-circ:before {
+  content: "g";
+}
+.icon-draw-line:before {
+  content: "h";
+}
+.icon-mirror-vert:before {
+  content: "i";
+}
+.icon-mirror-hori:before {
+  content: "j";
+}
+.icon-move-hori:before {
+  content: "k";
+}
+.icon-move-vert:before {
+  content: "l";
+}
+/* Pepto palette (default) */
+body.palette-c64-pepto .gui .color-00,
+body.palette-c64-pepto .gui .color-00:hover {
+  background: #000000;
+}
+body.palette-c64-pepto .gui .color-01,
+body.palette-c64-pepto .gui .color-01:hover {
+  background: #ffffff;
+}
+body.palette-c64-pepto .gui .color-02,
+body.palette-c64-pepto .gui .color-02:hover {
+  background: #68372b;
+}
+body.palette-c64-pepto .gui .color-03,
+body.palette-c64-pepto .gui .color-03:hover {
+  background: #70a4b2;
+}
+body.palette-c64-pepto .gui .color-04,
+body.palette-c64-pepto .gui .color-04:hover {
+  background: #6f3d86;
+}
+body.palette-c64-pepto .gui .color-05,
+body.palette-c64-pepto .gui .color-05:hover {
+  background: #588d43;
+}
+body.palette-c64-pepto .gui .color-06,
+body.palette-c64-pepto .gui .color-06:hover {
+  background: #352879;
+}
+body.palette-c64-pepto .gui .color-07,
+body.palette-c64-pepto .gui .color-07:hover {
+  background: #b8c76f;
+}
+body.palette-c64-pepto .gui .color-08,
+body.palette-c64-pepto .gui .color-08:hover {
+  background: #6f4f25;
+}
+body.palette-c64-pepto .gui .color-09,
+body.palette-c64-pepto .gui .color-09:hover {
+  background: #433900;
+}
+body.palette-c64-pepto .gui .color-0A,
+body.palette-c64-pepto .gui .color-0A:hover {
+  background: #9a6759;
+}
+body.palette-c64-pepto .gui .color-0B,
+body.palette-c64-pepto .gui .color-0B:hover {
+  background: #444444;
+}
+body.palette-c64-pepto .gui .color-0C,
+body.palette-c64-pepto .gui .color-0C:hover {
+  background: #6c6c6c;
+}
+body.palette-c64-pepto .gui .color-0D,
+body.palette-c64-pepto .gui .color-0D:hover {
+  background: #9ad284;
+}
+body.palette-c64-pepto .gui .color-0E,
+body.palette-c64-pepto .gui .color-0E:hover {
+  background: #6c5eb5;
+}
+body.palette-c64-pepto .gui .color-0F,
+body.palette-c64-pepto .gui .color-0F:hover {
+  background: #959595;
+}
+/* Straight palette (CCS2) */
+body.palette-c64-straight .gui .color-00,
+body.palette-c64-straight .gui .color-00:hover {
+  background: #000000;
+}
+body.palette-c64-straight .gui .color-01,
+body.palette-c64-straight .gui .color-01:hover {
+  background: #ffffff;
+}
+body.palette-c64-straight .gui .color-02,
+body.palette-c64-straight .gui .color-02:hover {
+  background: #ff0000;
+}
+body.palette-c64-straight .gui .color-03,
+body.palette-c64-straight .gui .color-03:hover {
+  background: #00ffff;
+}
+body.palette-c64-straight .gui .color-04,
+body.palette-c64-straight .gui .color-04:hover {
+  background: #ff00ff;
+}
+body.palette-c64-straight .gui .color-05,
+body.palette-c64-straight .gui .color-05:hover {
+  background: #00ff00;
+}
+body.palette-c64-straight .gui .color-06,
+body.palette-c64-straight .gui .color-06:hover {
+  background: #0000ff;
+}
+body.palette-c64-straight .gui .color-07,
+body.palette-c64-straight .gui .color-07:hover {
+  background: #ffff00;
+}
+body.palette-c64-straight .gui .color-08,
+body.palette-c64-straight .gui .color-08:hover {
+  background: #ff7f00;
+}
+body.palette-c64-straight .gui .color-09,
+body.palette-c64-straight .gui .color-09:hover {
+  background: #7f3f00;
+}
+body.palette-c64-straight .gui .color-0A,
+body.palette-c64-straight .gui .color-0A:hover {
+  background: #ff7f7f;
+}
+body.palette-c64-straight .gui .color-0B,
+body.palette-c64-straight .gui .color-0B:hover {
+  background: #3f3f3f;
+}
+body.palette-c64-straight .gui .color-0C,
+body.palette-c64-straight .gui .color-0C:hover {
+  background: #7f7f7f;
+}
+body.palette-c64-straight .gui .color-0D,
+body.palette-c64-straight .gui .color-0D:hover {
+  background: #7fff7f;
+}
+body.palette-c64-straight .gui .color-0E,
+body.palette-c64-straight .gui .color-0E:hover {
+  background: #7f7fff;
+}
+body.palette-c64-straight .gui .color-0F,
+body.palette-c64-straight .gui .color-0F:hover {
+  background: #bfbfbf;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  overflow-x: hidden;
+}
+html,
+body {
+  float: left;
+  font-size: 100.01%;
+  margin: 0;
+  min-height: 100%;
+  padding: 0;
+  width: 100%;
+}
+html > body,
+body > body {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 0.85em;
+}
+hr {
+  background: #787878;
+  border: none;
+  height: 1px;
+}
+fieldset {
+  border: none;
+  display: inline-block;
+  margin: 0;
+  width: auto;
+}
+.clr {
+  clear: both;
+}
+.hide {
+  display: none;
+}
+#header {
+  background: linear-gradient(135deg, #b2b2b2 0%, #bdbdbd 15%, #b0b0b0 20%, #7a7a7a 40%, #707070 49%, #7a7a7a 55%, #9d9d9d 65%, #7a7a7a 75%, #707070 82%);
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px #000000;
+  margin: 10px;
+  padding: 0;
+  position: relative;
+  z-index: 1030;
+}
+#header > div {
+  background: linear-gradient(to bottom, rgba(183, 4, 6, 0) 9%, #b70406 9%, #b70406 18%, rgba(183, 4, 6, 0) 18%, rgba(221, 79, 1, 0) 27%, #dd4f01 27%, #dd4f01 36%, rgba(221, 79, 1, 0) 36%, rgba(226, 226, 18, 0) 45%, #e2e212 45%, #e2e212 54%, rgba(226, 226, 18, 0) 54%, rgba(28, 175, 29, 0) 63%, #1caf1d 63%, #1caf1d 72%, rgba(28, 175, 29, 0) 72%, rgba(70, 128, 146, 0) 81%, #468092 81%, #468092 90%, rgba(70, 128, 146, 0) 90%);
+  border-radius: 20px;
+  margin: 0;
+  padding: 0 10px 0 10px;
+  width: 100%;
+}
+#header .navbar-brand {
+  color: #000000;
+  font-size: 200%;
+  font-weight: 900;
+}
+#header .navbar-right {
+  margin-right: 20px;
+}
+#header li,
+#header a {
+  color: #000000;
+  cursor: pointer;
+}
+#header .dropdown {
+  background: rgba(240, 240, 240, 0.2);
+}
+#header .dropdown:hover,
+#header .dropdown.open,
+#header .dropdown.open > a {
+  background: rgba(240, 240, 240, 0.5);
+}
+#header .dropdown-submenu {
+  position: relative;
+}
+#header .dropdown-submenu:before {
+  color: inherit;
+  content: '›';
+  font-weight: 700;
+  position: absolute;
+  top: 3px;
+  right: 5px;
+}
+#header .dropdown-submenu > .dropdown-menu {
+  display: none;
+  left: 100%;
+  top: -8px;
+}
+#header .dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+.container {
+  position: relative;
+  z-index: 1020;
+}
+.container .gui {
+  box-sizing: border-box;
+  float: left;
+  padding: 5px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+/* - paintTools ----------------------------------------------------------------------------------------------------- */
+#paintTools h2 {
+  display: none;
+}
+#paintTools ul {
+  margin: 0;
+  text-align: center;
+}
+#paintTools ul li {
+  box-sizing: content-box;
+  display: inline-block;
+  font-size: 18px;
+  height: 20px;
+  margin: 0;
+  overflow: hidden;
+  padding: 1px;
+  width: 20px;
+}
+body #image {
+  cursor: crosshair !important;
+}
+body.mode-paint #image {
+  cursor: url("../img/cursor_paint.png"), auto !important;
+}
+body.mode-erase #image {
+  cursor: url("../img/cursor_erase.png"), auto !important;
+}
+/* - colorPalette ----------------------------------------------------------------------------------------------------- */
+#colorPalette h2 {
+  display: none;
+}
+#colorPalette ul {
+  margin: 0;
+  text-align: center;
+}
+#colorPalette ul li {
+  border: 1px solid #a0a0a0;
+  box-sizing: content-box;
+  display: inline-block;
+  font-size: 18px;
+  height: 20px;
+  margin: 0;
+  overflow: hidden;
+  padding: 1px;
+  width: 20px;
+}
+/* - toolStatus ----------------------------------------------------------------------------------------------------- */
+#toolStatus h2 {
+  display: none;
+}
+#toolStatus ul {
+  margin: 0;
+  text-align: center;
+}
+#toolStatus ul li {
+  border: 1px solid #a0a0a0;
+  box-sizing: content-box;
+  display: inline-block;
+  font-size: 18px;
+  height: 20px;
+  margin: 0;
+  overflow: hidden;
+  padding: 1px;
+  width: 20px;
+}
+/* - canvas ----------------------------------------------------------------------------------------------------- */
+#workspace {
+  z-index: 1020;
+}
+#workspace h2 {
+  display: none;
+}
+#workspace ul {
+  float: left;
+}
+#workspace fieldset {
+  margin: 5px 0 0 0;
+}
+#workspace #canvas {
+  background: #282828;
+  display: block;
+  float: left;
+  margin: 0;
+  overflow: auto;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+#workspace #canvas #canvas-display {
+  background: #282828;
+  border: none;
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+#workspace #canvas #canvas-display .helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+#workspace #canvas #canvas-display #image {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+#workspace #canvas #canvas-display #image .canvas {
+  display: block;
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: 1000000;
+}
+#workspace #canvas #canvas-display #image #mouse {
+  display: block;
+  z-index: 100000000;
+}
+#workspace #canvas #canvas-display #image #grid {
+  display: none;
+  z-index: 10000000;
+}
+#workspace #canvas #canvas-display #image #pixel {
+  float: left;
+  position: relative;
+  z-index: 100;
+}
+#workspace #canvas #canvas-display.hasGrid #image #grid {
+  display: block;
+}
+#workspace #canvas #canvas-display .canvas-background {
+  height: 100%;
+  width: 100%;
+}
+#workspace #canvas #canvas-display .canvas-block,
+#workspace #canvas #canvas-display .pixel {
+  float: left;
+}
+#workspace #canvas.bigImage #canvas-display #image {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+/* - historyTools ----------------------------------------------------------------------------------------------------- */
+#historyTools h2 {
+  display: none;
+}
+#historyTools ul {
+  max-height: 300px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+#historyTools ul li {
+  border: none;
+  font-size: 10px;
+}
+/* - previewTools ----------------------------------------------------------------------------------------------------- */
+#previewTools h2 {
+  display: none;
+}
+#previewTools ul {
+  overflow: hidden;
+}
+#previewTools ul li {
+  border: none;
+  font-size: 10px;
+}
+/* default */
+a.unavailable,
+a.unavailable:hover {
+  background: transparent !important;
+  cursor: not-allowed !important;
+}
+/* darkTheme */
+body.darkTheme {
+  background: #282828;
+  color: #f0f0f0;
+}
+body.darkTheme .gui {
+  background: #787878;
+}
+body.darkTheme .gui li {
+  border: 1px solid #a0a0a0;
+  background: #787878;
+}
+body.darkTheme .gui li:hover {
+  background: #468092;
+}
+body.darkTheme .gui .unavailable,
+body.darkTheme .gui .unavailable:hover {
+  background: #787878;
+  color: #a0a0a0;
+}
+body.darkTheme #header .navbar-collapse > ul > li a {
+  background: transparent;
+  border: none;
+}
+body.darkTheme #header .navbar-collapse > ul > li a.unavailable {
+  color: #a0a0a0;
+}
+body.darkTheme #header .dropdown-menu,
+body.darkTheme #header .dropdown-menu li,
+body.darkTheme #header .dropdown-menu a {
+  background: #787878;
+  color: #f0f0f0;
+}
+body.darkTheme #header .dropdown-menu li.divider {
+  background: #f0f0f0;
+}
+body.darkTheme #header .navbar-collapse > ul > li li a:hover {
+  background: #468092;
+}
+body.darkTheme #colorPalette li:hover {
+  border-color: #468092;
+}
+body.darkTheme #paintTools li.active {
+  background: #468092;
+}
+body.darkTheme .modal-content {
+  background: #787878;
+}
+body.darkTheme .btn-primary,
+body.darkTheme .progress-bar-info {
+  background-color: #468092;
+}
+body.darkTheme .close,
+body.darkTheme .close:focus,
+body.darkTheme .close:hover {
+  color: #ffffff;
+}
+/* lightTheme */
+body.lightTheme {
+  background: #f0f0f0;
+  color: #282828;
+}
+body.lightTheme .gui {
+  border: 1px solid #a0a0a0;
+  background: #c8c8c8;
+}
+body.lightTheme .gui li {
+  border: 1px solid #a0a0a0;
+  background: #c8c8c8;
+}
+body.lightTheme .gui li:hover {
+  background: #e2e212;
+}
+body.lightTheme .gui .unavailable,
+body.lightTheme .gui .unavailable:hover {
+  background: #c8c8c8;
+  color: #a0a0a0;
+}
+body.lightTheme #header .navbar-collapse > ul > li a {
+  background: transparent;
+  border: none;
+}
+body.lightTheme #header .navbar-collapse > ul > li a.unavailable {
+  color: #a0a0a0;
+}
+body.lightTheme #header .dropdown-menu,
+body.lightTheme #header .dropdown-menu li,
+body.lightTheme #header .dropdown-menu a {
+  background: #c8c8c8;
+  color: #282828;
+}
+body.lightTheme #header .dropdown-menu li.divider {
+  background: #282828;
+}
+body.lightTheme #header .navbar-collapse > ul > li li a:hover {
+  background: #e2e212;
+}
+body.lightTheme #colorPalette li:hover {
+  border-color: #e2e212;
+}
+body.lightTheme #paintTools li.active {
+  background: #e2e212;
+}
+body.lightTheme .modal-content {
+  background: #c8c8c8;
+}
+body.lightTheme .btn-primary,
+body.lightTheme .progress-bar-info {
+  background-color: #e2e212;
+  color: #282828;
+}
+body.lightTheme .close,
+body.lightTheme .close:focus,
+body.lightTheme .close:hover {
+  color: #000000;
+}
+/* bluescreenTheme */
+body.bluescreenTheme {
+  background: #352879;
+  color: #ffffff;
+}
+body.bluescreenTheme .gui {
+  border: 1px solid #352879;
+  background: #6c5eb5;
+}
+body.bluescreenTheme .gui li {
+  border: 1px solid #352879;
+  background: #6c5eb5;
+}
+body.bluescreenTheme .gui li:hover {
+  background: #352879;
+}
+body.bluescreenTheme .gui .unavailable,
+body.bluescreenTheme .gui .unavailable:hover {
+  background: #6c5eb5;
+  color: #a0a0a0;
+}
+body.bluescreenTheme #header .navbar-collapse > ul > li a {
+  background: transparent;
+  border: none;
+}
+body.bluescreenTheme #header .navbar-collapse > ul > li a.unavailable {
+  color: #a0a0a0;
+}
+body.bluescreenTheme #header .dropdown-menu,
+body.bluescreenTheme #header .dropdown-menu li,
+body.bluescreenTheme #header .dropdown-menu a {
+  background: #6c5eb5;
+  color: #ffffff;
+}
+body.bluescreenTheme #header .dropdown-menu li.divider {
+  background: #ffffff;
+}
+body.bluescreenTheme #header .navbar-collapse > ul > li li a:hover {
+  background: #352879;
+}
+body.bluescreenTheme #colorPalette li:hover {
+  border-color: #352879;
+}
+body.bluescreenTheme #paintTools li.active {
+  background: #352879;
+}
+body.bluescreenTheme #workspace #canvas #canvas-display {
+  background: #352879;
+}
+body.bluescreenTheme .modal-content {
+  background: #352879;
+}
+body.bluescreenTheme .btn-primary,
+body.bluescreenTheme .progress-bar-info {
+  background-color: #6c5eb5;
+}
+body.bluescreenTheme .close,
+body.bluescreenTheme .close:focus,
+body.bluescreenTheme .close:hover {
+  color: #ffffff;
+}
+@media (min-width: 1600px) {
+  body > .container {
+    width: 98%;
+  }
+  body > .container .col-md-1 {
+    width: 6%;
+  }
+  body > .container .col-md-1 > div,
+  body > .container .col-md-1 > div > ul {
+    max-width: 90px;
+  }
+  body > .container .col-md-2 {
+    width: 12%;
+  }
+  body > .container .col-md-9 {
+    width: 82%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .modal-dialog {
+    margin: 70px auto;
+  }
+}
